@@ -1,0 +1,24 @@
+{
+    "name": "hyperpay/connect-in",
+    "description": "hyperpay-ACI request handle",
+    "type": "helper",
+    "autoload": {
+        "psr-4": {
+            "Hyperpay\\ConnectIn\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hyperpay\\ConnectIn\\ConnectInServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "ahmada3mar",
+            "email": "ahmad.aimer@hyperpay.com"
+        }
+    ],
+    "require": {}
+}
