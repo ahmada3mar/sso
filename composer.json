@@ -20,5 +20,7 @@
             "email": "ahmad.aimer@hyperpay.com"
         }
     ],
-    "require": {}
+    "require": {
+        "jenssegers/mongodb" : "*"
+    }
 }

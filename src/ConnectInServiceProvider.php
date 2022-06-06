@@ -13,8 +13,10 @@ class ConnectInServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
 
+
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     /**
