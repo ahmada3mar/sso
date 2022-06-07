@@ -44,7 +44,7 @@ Connect in is a laravel package to handle ACI request & response
 
 * [Customize Merchants Table](#customize-merchants-table)
 
-* [Customize the Controller](#customize-the-controller)(#javascript-and-css)
+* [Customize the Controller](#customize-the-controller)
 
 ## Installation
 
@@ -183,10 +183,10 @@ this command will generate a controller named **ConnectInController.php** inside
 
  public  function  payment(ConnectInRequest  $request)
  {
-  $data  =  $request->all();
-  extract($data);
-  $data['UUID'] =  $customParameters['UUID'];
-  Transaction::create($data);
+    $data  =  $request->all();
+    extract($data);
+    $data['UUID'] =  $customParameters['UUID'];
+    Transaction::create($data);
     return  $request->response(ConnectIn::CREATED);
  }
 
