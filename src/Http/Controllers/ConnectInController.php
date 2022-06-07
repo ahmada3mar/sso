@@ -1,6 +1,6 @@
 <?php
 
-namespace Hyperpay\ConnectIn\Controllers;
+namespace Hyperpay\ConnectIn\Http\Controllers;
 
 
 use Hyperpay\ConnectIn\Models\Transaction;
@@ -16,13 +16,15 @@ class ConnectInController extends Controller
      *
      *  recive ACI request and return response to ACI
      *
-     * @param App\Http\Requests\ConnectInRequest
+     * @param Hyperpay\ConnectIn\Requests\ConnectInRequest
      *
-     * @return App\Http\Requests\ConnectInRequest::response
+     * @return Hyperpay\ConnectIn\Requests\ConnectInRequest::response
      */
 
     public function payment(ConnectInRequest $request)
     {
+
+       return config('connect-in.default_response');
         // conver request object to array of params
         $data = $request->all();
         extract($data);
@@ -30,7 +32,7 @@ class ConnectInController extends Controller
         $data['UUID'] = $customParameters['UUID'];
         Transaction::create($data);
 
-        return  $request->response(ConnectIn::CREATED, $resonse_data);
+        return  $request->response(ConnectIn::CREATED);
     }
 
     /**

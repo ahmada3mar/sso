@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Hyperpay\\ConnectIn\\Http\\Controllers\\ConnectInController' => $baseDir . '/src/Http/Controllers/ConnectInController.php',
 );

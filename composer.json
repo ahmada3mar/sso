@@ -5,7 +5,10 @@
     "autoload": {
         "psr-4": {
             "Hyperpay\\ConnectIn\\": "src/"
-        }
+        },
+        "classmap": [
+            "src/Http/Controllers"
+        ]
     },
     "extra": {
         "laravel": {
@@ -20,5 +23,7 @@
             "email": "ahmad.aimer@hyperpay.com"
         }
     ],
-    "require": {}
+    "require": {
+        "jenssegers/mongodb" : "*"
+    }
 }

@@ -22,6 +22,7 @@ class ComposerStaticInitc8cef8a203ce15a78b642a5ebe3f26b9
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Hyperpay\\ConnectIn\\Http\\Controllers\\ConnectInController' => __DIR__ . '/../..' . '/src/Http/Controllers/ConnectInController.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
