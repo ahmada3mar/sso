@@ -48,7 +48,7 @@ class ConnectInRequest extends FormRequest
     {
         $data = $validator->valid();
         $connectIn = new ConnectIn($data);
-        $connectIn->errors($validator->errors()->all());
+        $connectIn->errors = $validator->errors()->all();
 
         throw new HttpResponseException($connectIn->response(ConnectIn::BAD_REQUEST));
     }

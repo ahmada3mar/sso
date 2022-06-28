@@ -24,7 +24,6 @@ class ConnectInController extends Controller
     public function payment(ConnectInRequest $request)
     {
 
-       return config('connect-in.default_response');
         // conver request object to array of params
         $data = $request->all();
         extract($data);

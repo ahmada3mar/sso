@@ -15,7 +15,6 @@ class Transaction extends Model
         'authentication_entityId',
         'amount',
         'currency',
-        'brand_uuid',
         'UUID',
         'merchantTransactionId',
         'notificationUrl',
@@ -48,7 +47,7 @@ class Transaction extends Model
 
     public function mongoLog()
     {
-        return $this->hasOne(MongoLog::class, 'invoice_id', 'invoice_id');
+        return $this->hasOne(MongoLog::class, 'id', 'UUID');
     }
 
     public function requestTransaction()
