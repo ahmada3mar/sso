@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Http;
 class ConnectIn
 {
     private $data;
+    private $redirect = [];
+    private $errors = [];
 
-   const CREATED = 201;
-   const SUCCESSFUL = 200;
-   const BAD_REQUEST = 400;
+    const CREATED = 201;
+    const SUCCESSFUL = 200;
+    const BAD_REQUEST = 400;
 
 
 
@@ -164,8 +166,8 @@ class ConnectIn
             'responseCode' => $code,
         ];
 
-        if (!empty($this->errors)) {
-            $details['AcquirerResponse'] = $this->errors;
+        if (!empty($this->getErrors())) {
+            $details['AcquirerResponse'] = $this->getErrors();
         }
 
         return $details;
@@ -182,6 +184,46 @@ class ConnectIn
         $notificationUrl = parse_url($data['notificationUrl'] ?? '');
         parse_str($notificationUrl['query'] ?? '', $queryParams);
         return $queryParams['ndcid'] ?? '';
+    }
+
+    /**
+     * Return list of errors.
+     *
+     * @return array $erros
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * Set list of errors.
+     * @param array $erros
+     * @return void
+     */
+    public function errors($data)
+    {
+        $this->errors = array_merge_recursive($this->errors, $data);
+    }
+
+    /**
+     * Build redirect object for ACI.
+     */
+    private function getRedirect()
+    {
+        return [
+            "url" =>   $this->redirect['url'],
+            "method" =>   $this->redirect['method'] ?? 'GET',
+            "parameters" =>  $this->redirect['parameters']
+        ];
+    }
+
+    /**
+     * Set redirect object.
+     */
+    public function setRedirect($redirect)
+    {
+        $this->redirect = $redirect;
     }
 
     /**
@@ -209,6 +251,10 @@ class ConnectIn
             "timestamp" =>  Carbon::now()->format('Y-m-d H:i:sP'),
             "ndc" => $this->getNdc($this->data)
         ];
+
+        if (!empty($this->redirect)) {
+            $response['redirect'] = $this->getRedirect();
+        }
 
 
         return response($response);

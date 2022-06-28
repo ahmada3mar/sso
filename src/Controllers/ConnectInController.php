@@ -28,9 +28,9 @@ class ConnectInController extends Controller
         extract($data);
         // Extract UUID from ACI request to asign it to a new transaction
         $data['UUID'] = $customParameters['UUID'];
-        Transaction::create($data);
-
-        return  $request->response(ConnectIn::CREATED, $resonse_data);
+        
+        $connectIn = new ConnectIn($data);
+        return $connectIn->response(ConnectIn::CREATED);
     }
 
     /**
