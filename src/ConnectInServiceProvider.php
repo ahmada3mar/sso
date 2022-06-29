@@ -30,10 +30,10 @@ class ConnectInServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/dist/Controllers' => app_path('Http/Controllers') ], 'controllers');
         $this->publishes([__DIR__ . '/config/connect-in.php' => config_path('connect-in.php')], 'config');
-        $this->publishes([__DIR__ . '/database/migrations' => $this->app->databasePath() . "/migrations/"], 'migrations');
+        $this->publishes([__DIR__ . '/Database/migrations' => $this->app->databasePath() . "/migrations/"], 'migrations');
 
 
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
         $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
     }
 }
