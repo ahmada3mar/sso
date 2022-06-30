@@ -11,6 +11,26 @@ use Illuminate\Validation\Rule;
 class ConnectInRequest extends FormRequest
 {
     /**
+     * prepare request for validation
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $data = $this->request->all();
+        $parsedData = $this->parse_query(request()->getContent());
+
+        $this->replace($parsedData);
+
+        if (isset($this->customParameters['categories'])) {
+            $customParams = $this->customParameters;
+            $customParams['categories'] = json_decode($this->customParameters['categories'], true);
+            $this->merge([
+                'customParameters' => $customParams,
+            ]);
+        }
+    }
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

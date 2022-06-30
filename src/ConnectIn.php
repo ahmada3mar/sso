@@ -245,7 +245,7 @@ class ConnectIn
             "paymentBrand" =>  $this->data['paymentBrand'] ?? '',
             "amount" => $this->data['amount'] ?? '',
             "currency" =>  $this->data['currency'] ?? '',
-            "descriptor" => $this->data['descriptor'] ?? '',
+            "descriptor" => $this->getErrors() ? json_encode($this->getErrors()) : ($this->data['descriptor'] ?? ''),
             "result" => $Aci_response,
             "resultDetails" =>  $resultDetails,
             "timestamp" =>  Carbon::now()->format('Y-m-d H:i:sP'),
