@@ -30,6 +30,61 @@ class ConnectInRequest extends FormRequest
             ]);
         }
     }
+
+    private function parse_query($str, $urlEncoding = true): array
+    {
+        $result = [];
+
+        if ($str === '') {
+            return $result;
+        }
+
+        if ($urlEncoding === true) {
+            $decoder = function ($value) {
+                return rawurldecode(str_replace('+', ' ', $value));
+            };
+        } elseif ($urlEncoding === PHP_QUERY_RFC3986) {
+            $decoder = 'rawurldecode';
+        } elseif ($urlEncoding === PHP_QUERY_RFC1738) {
+            $decoder = 'urldecode';
+        } else {
+            $decoder = function ($str) {
+                return $str;
+            };
+        }
+
+        foreach (explode('&', $str) as $kvp) {
+            $parts = explode('=', $kvp, 2);
+            $key = $decoder($parts[0]);
+            $value = isset($parts[1]) ? $decoder($parts[1]) : null;
+            if (!isset($result[$key])) {
+                $result[$key] = $value;
+            } else {
+                if (!is_array($result[$key])) {
+                    $result[$key] = [$result[$key]];
+                }
+                $result[$key][] = $value;
+            }
+        }
+        return $this->buildCartItems($result);
+    }
+
+    private function buildCartItems($parsedData)
+    {
+        $p1 = [];
+        foreach ($parsedData as $key => $value) {
+            if (\strpos($key, "cart") > -1) {
+                $key = \explode(".", $key);
+                $prop = \array_pop($key);
+                $key = \implode(".", $key);
+                $key .= "[" . $prop . "]";
+            }
+            $p1[$key] = $value;
+        }
+        \parse_str(\http_build_query($p1), $parsedData);
+        return $parsedData;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
