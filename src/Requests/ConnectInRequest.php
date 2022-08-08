@@ -123,7 +123,15 @@ class ConnectInRequest extends FormRequest
     {
         $data = $validator->valid();
         $connectIn = new ConnectIn($data);
-        $connectIn->errors($validator->errors()->all());
+
+        $errors = $validator->errors()->toArray();
+        $errors = array_map(function($key, $value){
+            return [
+                'field' => $key,
+                'error' => $value[0]
+            ];
+        } ,array_keys($errors) , $errors);
+        $connectIn->errors($errors);
 
         throw new HttpResponseException($connectIn->response(ConnectIn::BAD_REQUEST));
     }

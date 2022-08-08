@@ -167,7 +167,8 @@ class ConnectIn
         ];
 
         if (!empty($this->getErrors())) {
-            $details['AcquirerResponse'] = $this->getErrors();
+            $details['AcquirerResponse'] = "Validation Error";
+            $details['ExtendedDescription'] =  json_encode([ "details" =>  $this->getErrors()]);
         }
 
         return $details;
@@ -245,7 +246,7 @@ class ConnectIn
             "paymentBrand" =>  $this->data['paymentBrand'] ?? '',
             "amount" => $this->data['amount'] ?? '',
             "currency" =>  $this->data['currency'] ?? '',
-            "descriptor" => $this->getErrors() ? json_encode($this->getErrors()) : ($this->data['descriptor'] ?? ''),
+            "descriptor" => $this->data['descriptor'] ?? '',
             "result" => $Aci_response,
             "resultDetails" =>  $resultDetails,
             "timestamp" =>  Carbon::now()->format('Y-m-d H:i:sP'),
