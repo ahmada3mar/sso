@@ -111,6 +111,11 @@ class ConnectIn
         $aciCode = $status['code'];
         $dec = $status['description'];
 
+        $resultDetails = $this->getResultDetails($code);
+        if(array_key_exists('ExtendedDescription' , $resultDetails)){
+            $dec = $resultDetails['ExtendedDescription'];
+        }
+
         $url = "{$transaction->notificationUrl}&status=$aciCode&resultDetails.ExtendedDescription=$dec&resultDetails.AcquirerResponse=$code";
 
         $data = $this->aciNotificationUrl($url, $transaction->merchant);
@@ -124,7 +129,7 @@ class ConnectIn
             'response' => $response->json()
         ];
 
-        $transaction->KioskLog->push('ACI', $Aci_log);
+        $transaction->mongoLog->push('ACI', $Aci_log);
 
         return $response;
     }

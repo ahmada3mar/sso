@@ -17,7 +17,6 @@ class ConnectInRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        $data = $this->request->all();
         $parsedData = $this->parse_query(request()->getContent());
 
         $this->replace($parsedData);
@@ -142,4 +141,5 @@ class ConnectInRequest extends FormRequest
         $connectIn = new ConnectIn($data);
         return $connectIn->response($code);
     }
+
 }
