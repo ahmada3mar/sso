@@ -109,14 +109,11 @@ class ConnectIn
     {
         $status = $this->ACIResponse($code);
         $aciCode = $status['code'];
-        $dec = $status['description'];
 
         $resultDetails = $this->getResultDetails($code);
-        if(array_key_exists('ExtendedDescription' , $resultDetails)){
-            $dec = $resultDetails['ExtendedDescription'];
-        }
+        $dec = $resultDetails['ExtendedDescription'] ?? $status['description'];
 
-        $url = "{$transaction->notificationUrl}&status=$aciCode&resultDetails.ExtendedDescription=$dec&resultDetails.AcquirerResponse=$code";
+        $url = "{$transaction->notificationUrl}&status=$aciCode&resultDetails.extendedDescription=$dec&resultDetails.acquirerResponse=$code";
 
         $data = $this->aciNotificationUrl($url, $transaction->merchant);
         $response =  Http::post($data);
