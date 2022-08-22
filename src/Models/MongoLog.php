@@ -26,7 +26,7 @@ class MongoLog extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class, 'UUID' , 'id');
+        return $this->belongsTo(Transaction::class, 'id','UUID');
     }
 
 
