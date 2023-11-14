@@ -1,19 +1,16 @@
 {
-    "name": "hyperpay/connect-in",
-    "description": "hyperpay-ACI request handle",
+    "name": "hyperpay/sso-client",
+    "description": "Single sign on handler",
     "type": "helper",
     "autoload": {
         "psr-4": {
-            "Hyperpay\\ConnectIn\\": "src/"
-        },
-        "classmap": [
-            "src/Http/Controllers"
-        ]
+            "Hyperpay\\SSO\\": "src/"
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Hyperpay\\ConnectIn\\ConnectInServiceProvider"
+                "Hyperpay\\SSO\\SSOServiceProvider"
             ]
         }
     },
@@ -24,6 +21,6 @@
         }
     ],
     "require": {
-        "jenssegers/mongodb" : "*"
+        "tymon/jwt-auth" : "*"
     }
 }
